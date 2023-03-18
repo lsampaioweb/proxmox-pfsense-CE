@@ -71,11 +71,11 @@ source "proxmox-iso" "template" {
   # Boot Command
   boot_wait      = var.boot_wait
   http_directory = var.http_directory
-  boot_command   = local.boot_command
+  boot_command   = var.boot_command
 
   # SSH Connection with the template
   ssh_username = var.ssh_username
-  ssh_password = file(local.path_random_password)
+  ssh_password = var.ssh_password
   ssh_timeout  = var.ssh_timeout
 }
 
@@ -90,7 +90,10 @@ build {
     use_proxy     = var.use_proxy
 
     # ANSIBLE_PYTHON_INTERPRETER is necessary because packer connects to hosts: [default].
-    ansible_env_vars = ["ANSIBLE_CONFIG=${local.path_ansible_scripts}/ansible.cfg ANSIBLE_PYTHON_INTERPRETER=/usr/local/bin/python3.8"]
+    ansible_env_vars = [
+      "ANSIBLE_CONFIG=${local.path_ansible_scripts}/ansible.cfg", 
+      "ANSIBLE_PYTHON_INTERPRETER=/usr/local/bin/python3.8"
+    ]
 
     extra_arguments = [
       "--extra-vars",

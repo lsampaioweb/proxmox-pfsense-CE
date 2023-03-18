@@ -4,8 +4,10 @@ variable "boot_wait" {
   default     = "40s"
 }
 
-locals {
-  boot_command = [
+variable "boot_command" {
+  description = "It specifies the keys to type when the virtual machine is first booted in order to start the OS installer."
+  type        = list(string)
+  default = [
     # Accept copyright.
     "<enter><wait2s>",
     # Options: Install, Rescue Shell, Recover config.xml
@@ -23,7 +25,7 @@ locals {
     # Select the vtbd0 as the block Device.
     "<spacebar><wait1s><enter><wait2s>",
     # Confirm the ZFS configuration.
-    "<left><wait1s><enter><wait40s>",
+    "<left><wait1s><enter><wait60s>",
     # Manual Configuration menu
     # Default No, Left for Yes
     "<enter><wait2s>",
@@ -34,20 +36,16 @@ locals {
     # vtnet0 for WAN interface name.
     "vtnet0<enter><wait2s>",
     # blank for LAN interface.
-    "<enter><wait2s>y<enter><wait50s>",
+    "<enter><wait2s>y<enter><wait60s>",
     # 14 -> y to enable sshd.
     "14<enter><wait2s>y<enter><wait2s>",
     # 8 -> Enter shell.
     "8<enter><wait2s>",
     # Instala o pacote do qemu no shell.
-    "pkg update<enter><wait20s>",
+    "pkg update<enter><wait30s>",
     "pkg install -y sudo<enter><wait20s>",
     "pkg install -y qemu-guest-agent<enter><wait20s>",
     "service qemu-guest-agent onestart<enter><wait2s>",
-    # Change the password.
-    "passwd admin<enter><wait1s>",
-    "${file(local.path_random_password)}<enter><wait1s>",
-    "${file(local.path_random_password)}<enter><wait1s>",
     # Return to the main menu.
     "exit<enter><wait2s>"
   ]

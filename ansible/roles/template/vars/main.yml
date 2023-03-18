@@ -1,7 +1,4 @@
 ---
-# The user account that Ansible will use to connect and run commands.
-ansible_user: "admin"
-
 # The id of the password saved in the secret manager.
 ansible_password_id: "{{ hostname }}"
 

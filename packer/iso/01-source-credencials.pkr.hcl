@@ -12,11 +12,11 @@ build {
 
   provisioner "shell-local" {
     inline = [
-      # Generate a random password and save it in the secret manager.
-      "echo -n $(cat ${local.path_random_password}) | secret-tool store --label='${var.vm_name}' password '${var.vm_name}'",
+      # Make sure the folder exists.
+      "mkdir -p ${local.path_temp_files}",
 
-      # Get the password and create a file with its encrypted value.
-      "mkpasswd --method=SHA-512 --rounds=4096 $(secret-tool lookup password ${var.vm_name}) > ${local.path_encrypted_password}"
+      # Generate a random password and save it in the secret manager.
+      "echo -n $(cat ${local.path_random_password}) | secret-tool store --label='${var.vm_name}' password '${var.vm_name}'"
     ]
   }
 }
