@@ -9,7 +9,7 @@
     name: "{{ item }}"
     state: "latest"
   loop:
-    - "sudo" # To enable elevated command.
+    - "pfSense-pkg-sudo" # To enable elevated command.
     - "qemu-guest-agent" # To enable proxmox do manage the VM.
 
 - name: "Setting the qemu-guest-agent to auto start"

@@ -1,9 +1,15 @@
 ---
-# The name of the root user used in VM.
+# The name of the user used in VM.
 user_password_id: "usr_ansible"
 
+# The password of the user used in VM.
+user_password: "{{ lookup('pipe', 'secret-tool lookup password ' + hostname) }}"
+
 # The hash type to be used when encrypting the user's password.
-password_hash: "sha512"
+password_hash: "bcrypt"
+
+# The encrypted value of the password.
+user_password_encrypted: "{{ user_password | password_hash(password_hash) }}"
 
 # Path of the CA Certificate.
 ssl_certificate_path: "/opt/certificates/certificate.authority/certificate.authority.crt"
