@@ -11,19 +11,5 @@ network_adapters = {
     model    = "virtio"
     vlan_tag = ""
     firewall = false
-  },
-  "02" = {
-    # LAN
-    bridge   = "vmbr2"
-    model    = "virtio"
-    vlan_tag = ""
-    firewall = false
-  },
-  "03" = {
-    # Sync - Cluster
-    bridge   = "vmbr3"
-    model    = "virtio"
-    vlan_tag = ""
-    firewall = false
   }
 }
