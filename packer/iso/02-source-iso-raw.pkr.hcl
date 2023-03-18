@@ -91,7 +91,7 @@ build {
 
     # ANSIBLE_PYTHON_INTERPRETER is necessary because packer connects to hosts: [default].
     ansible_env_vars = [
-      "ANSIBLE_CONFIG=${local.path_ansible_scripts}/ansible.cfg", 
+      "ANSIBLE_CONFIG=${local.path_ansible_scripts}/ansible.cfg",
       "ANSIBLE_PYTHON_INTERPRETER=/usr/local/bin/python3.8"
     ]
 
